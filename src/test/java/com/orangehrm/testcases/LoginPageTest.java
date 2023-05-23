@@ -14,8 +14,8 @@ import com.orangehrm.pageobject.PasswordResetCodePage;
 public class LoginPageTest extends Baseclass
 {
   HomePage homepage;
-  DataProvide data=new DataProvide();   
- // @Test(priority=1)
+  //DataProvide data=new DataProvide();   
+  @Test(priority=1)
   public void validateLog() throws Throwable
   {
 	login=new LoginPage();
@@ -24,7 +24,7 @@ public class LoginPageTest extends Baseclass
 	Assert.assertTrue(b);
   }
   
-  //@Test(priority=2)
+  @Test(priority=2)
   public void validateTitle() throws Throwable
   {
 	  String actual=login.getTiltle();
@@ -32,10 +32,10 @@ public class LoginPageTest extends Baseclass
 	  Assert.assertEquals(actual, expected);
   }
   
-@Test(priority=3)
-  public void loginTo() throws Throwable
+@Test(priority=3,dataProvider="data")
+  public void loginTo(String user,String pass) throws Throwable
   {
-	 homepage= login.login("admin","Admin123");
+	 homepage= login.login(user,pass);
 	 Thread.sleep(1000);
 	 String expectedUrl="https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
 	 String actualUrl=driver.getCurrentUrl();
@@ -43,7 +43,4 @@ public class LoginPageTest extends Baseclass
 	 Assert.assertEquals(actualUrl, expectedUrl);
   }
 
-
- 
- 
 }
